@@ -13,7 +13,7 @@
     </div>
     <div>
       <el-dropdown>
-        <el-avatar shape="square" :src="avatarSrc"></el-avatar>
+        <el-avatar shape="square" src=""></el-avatar>
         <el-dropdown-menu slot="dropdown">
           <el-dropdown-item icon="el-icon-user-solid" @click.native="login">登录</el-dropdown-item>
           <el-dropdown-item icon="el-icon-delete-solid">退出</el-dropdown-item>
@@ -26,16 +26,21 @@
 <script>
 import { mapState } from 'vuex'
 export default {
+  data() {
+    return {
+
+    }
+  },
   computed: {
     ...mapState({
-      avatarSrc: (state) => state.tab.avatarSrc,
-      breadTabList: (state) => state.tab.breadTabList
+      userList: (state) => state.user.tableData,//用户数据
+      breadTabList: (state) => state.tab.breadTabList//面包屑
     })
   },
   methods: {
     // 点击展开收缩导航栏
     isCollapse() {
-      this.$store.commit("changeCollapse")
+      this.$store.commit("tab/changeCollapse")
     },
     // 点击登录 
     //1.判断是否已经登录

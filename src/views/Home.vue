@@ -9,9 +9,10 @@
             <!-- 用户信息 -->
             <el-avatar :size="200" shape="square" :src="avatarSrc"></el-avatar>
             <div class="userDisplay">
-              <h3>用户名</h3>
-              <p>用户身份</p>
+              <h3>{{ userList[0].username }}</h3>
+              <p>{{ userList[0].gender }}</p>
               <el-divider></el-divider>
+              <h3>上次登录时间{{ userList[0].date | formatDate }}</h3>
             </div>
           </el-card>
         </div>
@@ -57,7 +58,8 @@ export default {
   },
   computed: {
     ...mapState({
-      avatarSrc: (state) => state.tab.avatarSrc
+      avatarSrc: (state) => state.tab.avatarSrc,
+      userList: (state) => state.user.tableData//用户数据
     })
   },
   mounted() {
@@ -101,6 +103,24 @@ export default {
         }
       ]
     })
+  },
+  // 时间戳转换
+  filters: {
+    formatDate: function (value) {
+      let date = new Date(value);//这个是纳秒的
+      let y = date.getFullYear();
+      let MM = date.getMonth() + 1;
+      MM = MM < 10 ? ('0' + MM) : MM;
+      let d = date.getDate();
+      d = d < 10 ? ('0' + d) : d;
+      let h = date.getHours();
+      h = h < 10 ? ('0' + h) : h;
+      let m = date.getMinutes();
+      m = m < 10 ? ('0' + m) : m;
+      let s = date.getSeconds();
+      s = s < 10 ? ('0' + s) : s;
+      return y + '-' + MM + '-' + d + ' ' + h + ':' + m + ':' + s;
+    }
   }
 }
 </script>
